@@ -1,0 +1,361 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"h",
+				"h3\tTag"
+			],
+			[
+				"hotel",
+				"hotels"
+			],
+			[
+				"con",
+				"configs"
+			],
+			[
+				"v",
+				"volumes"
+			],
+			[
+				"env",
+				"env_file"
+			],
+			[
+				"defa",
+				"default"
+			],
+			[
+				"de",
+				"default_key"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "package main\n\nimport (\n    \"encoding/json\"\n    \"log\"\n    \"net/http\"\n\n    \"github.com/gorilla/mux\"\n)\n\ntype Person struct {\n    ID        string   `json:\"id,omitempty\"`\n    Firstname string   `json:\"firstname,omitempty\"`\n    Lastname  string   `json:\"lastname,omitempty\"`\n    Address   *Address `json:\"address,omitempty\"`\n}\n\ntype Address struct {\n    City  string `json:\"city,omitempty\"`\n    State string `json:\"state,omitempty\"`\n}\n\nvar people []Person\n\nfunc GetPersonEndpoint(w http.ResponseWriter, req *http.Request) {\n    params := mux.Vars(req)\n    for _, item := range people {\n        if item.ID == params[\"id\"] {\n            json.NewEncoder(w).Encode(item)\n            return\n        }\n    }\n    json.NewEncoder(w).Encode(&Person{})\n}\n\nfunc GetPeopleEndpoint(w http.ResponseWriter, req *http.Request) {\n    json.NewEncoder(w).Encode(people)\n}\n\nfunc CreatePersonEndpoint(w http.ResponseWriter, req *http.Request) {\n    params := mux.Vars(req)\n    var person Person\n    _ = json.NewDecoder(req.Body).Decode(&person)\n    person.ID = params[\"id\"]\n    people = append(people, person)\n    json.NewEncoder(w).Encode(people)\n}\n\nfunc DeletePersonEndpoint(w http.ResponseWriter, req *http.Request) {\n    params := mux.Vars(req)\n    for index, item := range people {\n        if item.ID == params[\"id\"] {\n            people = append(people[:index], people[index+1:]...)\n            break\n        }\n    }\n    json.NewEncoder(w).Encode(people)\n}\n\nfunc main() {\n    router := mux.NewRouter()\n    people = append(people, Person{ID: \"1\", Firstname: \"Nic\", Lastname: \"Raboy\", Address: &Address{City: \"Dublin\", State: \"CA\"}})\n    people = append(people, Person{ID: \"2\", Firstname: \"Maria\", Lastname: \"Raboy\"})\n    router.HandleFunc(\"/people\", GetPeopleEndpoint).Methods(\"GET\")\n    router.HandleFunc(\"/people/{id}\", GetPersonEndpoint).Methods(\"GET\")\n    router.HandleFunc(\"/people/{id}\", CreatePersonEndpoint).Methods(\"POST\")\n    router.HandleFunc(\"/people/{id}\", DeletePersonEndpoint).Methods(\"DELETE\")\n    log.Fatal(http.ListenAndServe(\":12345\", router))\n}",
+			"file": "/usr/local/Cellar/go/1.5.2/src/github.com/nraboy/restapi/vault-project.go",
+			"file_size": 2043,
+			"file_write_time": 131739267164780391,
+			"settings":
+			{
+				"buffer_size": 2043,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "package main"
+			}
+		},
+		{
+			"file": "Makefile",
+			"settings":
+			{
+				"buffer_size": 1050,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "SHELL := /bin/bash"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "in",
+		"selected_items":
+		[
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Install Package Control"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/usr/local/Cellar/go/1.5.2/src/github.com/nraboy",
+		"/usr/local/Cellar/go/1.5.2/src/github.com/nraboy/restapi"
+	],
+	"file_history":
+	[
+		"/Users/rbarrett/Library/Application Support/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+		"/Users/rbarrett/dev/AngularJs/hotelsApp/app/hotels/hotels.js",
+		"/Users/rbarrett/dev/devops/kube_service/deployment.yaml",
+		"/Users/rbarrett/dev/devops/kube_service/service.yaml",
+		"/Users/rbarrett/dev/devops/teamcity/Dockerfile",
+		"/Users/rbarrett/dev/devops/teamcity/welcome.sh",
+		"/Users/rbarrett/dev/devops/teamcity/run-services.sh",
+		"/Users/rbarrett/dev/devops/teamcity/run-server.sh",
+		"/Users/rbarrett/src/github/toguru-panel/index.html",
+		"/Users/rbarrett/dev/devops/kubernetes/kubernetes.txt",
+		"/Users/rbarrett/dev/03-learn-to-use-docker-in-development/src/proxy.conf",
+		"/Users/rbarrett/dev/03-learn-to-use-docker-in-development/src/Dockerfile.prod",
+		"/Users/rbarrett/dev/03-learn-to-use-docker-in-development/src/script/prod",
+		"/Users/rbarrett/dev/03-learn-to-use-docker-in-development/ci-cd.sh",
+		"/Users/rbarrett/dev/03-learn-to-use-docker-in-development/src/script/start",
+		"/Users/rbarrett/dev/03-learn-to-use-docker-in-development/src/docker-compose.yml",
+		"/Users/rbarrett/dev/03-learn-to-use-docker-in-development/src/docker-compose.prod.yml",
+		"/Users/rbarrett/.sbt/.repositories",
+		"/Users/rbarrett/dev/03-learn-to-use-docker-in-development/src/config/database.yml",
+		"/Users/rbarrett/dev/03-learn-to-use-docker-in-development/src/script/build.sh",
+		"/Users/rbarrett/dev/03-learn-to-use-docker-in-development/src/site.conf",
+		"/Users/rbarrett/src/github/jigsaw-docker/run.sh",
+		"/Users/rbarrett/dev/03-learn-to-use-docker-in-development/src/.env",
+		"/Users/rbarrett/dev/03-learn-to-use-docker-in-development/src/.env.prod",
+		"/Users/rbarrett/dev/03-learn-to-use-docker-in-development/Dockerfile",
+		"/Users/rbarrett/dev/03-learn-to-use-docker-in-development/docker-compose.yml",
+		"/Users/rbarrett/dev/03-learn-to-use-docker-in-development/.evn",
+		"/Users/rbarrett/dev/earthdata-search/docker-compose.yml",
+		"/Users/rbarrett/dev/earthdata-search/Dockerfile",
+		"/Users/rbarrett/dev/earthdata-search/config/database.yml",
+		"/Users/rbarrett/dev/earthdata-search/config/database.yml.test",
+		"/Users/rbarrett/dev/earthdata-search/config/secrets.yml",
+		"/Users/rbarrett/dev/earthdata-search/.evn",
+		"/Users/rbarrett/dev/docker-app-with-nginx-proxy/app/Dockerfile",
+		"/Users/rbarrett/dev/docker-app-with-nginx-proxy/app/index.html",
+		"/Users/rbarrett/dev/docker-app-with-nginx-proxy/proxy/Dockerfile",
+		"/Users/rbarrett/dev/docker-app-with-nginx-proxy/proxy/proxy.conf",
+		"/Users/rbarrett/dev/docker-app-with-nginx-proxy/docker-compose.yml",
+		"/Users/rbarrett/dev/noteapp/docker-compose.yml",
+		"/Users/rbarrett/dev/noteapp/Dockerfile",
+		"/Users/rbarrett/dev/noteapp/Gemfile.lock",
+		"/Users/rbarrett/dev/noteapp/Gemfile",
+		"/Users/rbarrett/dev/noteapp/config/database.yml",
+		"/Users/rbarrett/dev/noteapp/tmp/pids/server.pid",
+		"/Users/rbarrett/Downloads/2017-02-26T07_46_49.364Z.json",
+		"/Users/rbarrett/dev/javascript/B10_ScopeChain 2/Finished/app.js",
+		"/Users/rbarrett/something.json",
+		"/Users/rbarrett/src/add_update_iis_config.bat",
+		"/Users/rbarrett/Desktop/classified-list-gecloud-featurebee.json",
+		"/Users/rbarrett/src/github/classified-detail/assets/node_modules/autoprefixer/lib/brackets.js",
+		"/Users/rbarrett/dev/recfun/src/main/scala/recfun/Main.scala",
+		"/Users/rbarrett/Downloads/run-ron/classified-recommendations-lambda.yaml",
+		"/Users/rbarrett/Downloads/classified-recommendations-lambda-1.yaml",
+		"/Users/rbarrett/Downloads/patmat/src/main/scala/patmat/Huffman.scala",
+		"/Users/rbarrett/Downloads/index.js",
+		"/Users/rbarrett/Downloads/TypeAWSS3Bucket",
+		"/Users/rbarrett/Downloads/classified-recommendations-lambda.yaml",
+		"/Users/rbarrett/Desktop/firstPage.html",
+		"/Users/rbarrett/Documents/miscellaneous/Downloads/BingWallpaper-2015-09-30.jpg",
+		"/Users/rbarrett/restore-stack.json",
+		"/Users/rbarrett/Desktop/classified-list-gecloud-featurebee1.json",
+		"/Users/rbarrett/Downloads/classified-list-gecloud-featurebee-2.json",
+		"/Users/rbarrett/dev/docker-course/dockerapp/app/app.py",
+		"/Users/rbarrett/dev/docker-course/dockerapp/Dockerfile",
+		"/Users/rbarrett/dev/docker-course/dockerapp/docker-compose.yml",
+		"/Users/rbarrett/dev/docker-course/Dockerfile",
+		"/Users/rbarrett/Desktop/small-page.html"
+	],
+	"find":
+	{
+		"height": 24.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/usr/local/Cellar/go/1.5.2/src/github.com/nraboy/restapi/vault-project.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2043,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2043,
+								2043
+							]
+						],
+						"settings":
+						{
+							"auto_name": "package main",
+							"syntax": "Packages/Go/Go.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 284.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Makefile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1050,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1050,
+								1050
+							]
+						],
+						"settings":
+						{
+							"auto_name": "SHELL := /bin/bash",
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "vault.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 325.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
